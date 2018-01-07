@@ -66,28 +66,23 @@ public class TestClassTest {
         caps.setCapability(MobileCapabilityType.APP,
                 "/Users/mritunjd/Documents/my-workspace/practice/AppiumSample/VodQA.apk");
         caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Test");
-        caps.setCapability("unicodekeyboard", true);
-        caps.setCapability("resetkeyboard", true);
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         Thread.sleep(3000);
+
         WebElement userName = driver.findElementByAccessibilityId("username");
         userName.clear();
-        Thread.sleep(1000);
         userName.sendKeys("admin");
         driver.hideKeyboard();
         Thread.sleep(1000);
 
         WebElement password = driver.findElementByAccessibilityId("password");
-        Thread.sleep(1000);
         password.clear();
-        Thread.sleep(1000);
         password.sendKeys("admin");
         driver.hideKeyboard();
         Thread.sleep(1000);
 
         driver.findElementByAccessibilityId("login").click();
         Thread.sleep(2000);
-
     }
 
     @Test
