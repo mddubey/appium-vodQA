@@ -228,6 +228,38 @@ public class TestClassTest {
     }
 
     @Test
+    public void iOSCapabilitiesDragAndDrop() throws Exception {
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "11.0");
+        caps.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6");
+        caps.setCapability(MobileCapabilityType.APP,
+                "/Users/mritunjd/Documents/my-workspace/practice/AppiumSample/VodQA.zip");
+        caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
+        iosDriver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
+        Thread.sleep(1000);
+
+        iosDriver.findElementByAccessibilityId("login").click();
+        Thread.sleep(3000);
+        iosDriver.findElementByAccessibilityId("dragAndDrop").click();
+        Thread.sleep(3000);
+        WebElement dragMe = iosDriver.findElementByAccessibilityId("dragMe");
+        Dimension dragMeSize = dragMe.getSize();
+        WebElement dropzone = iosDriver.findElementByAccessibilityId("dropzone");
+        Dimension dropzoneSize = dropzone.getSize();
+
+        TouchAction touchAction = new TouchAction(iosDriver);
+
+        touchAction
+                .press(ElementOption.element(dragMe).withCoordinates(dragMeSize.getWidth() / 2, dragMeSize.getHeight() / 2))
+                .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(2)))
+                .moveTo(ElementOption.element(dropzone).withCoordinates(dropzoneSize.getWidth() / 2, dropzoneSize.getHeight() / 2))
+                .release().perform();
+
+        Thread.sleep(3000);
+
+    }
+
+    @Test
     public void androidCapabilitiesTwoSliderMovement() throws Exception {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
